@@ -36,6 +36,9 @@ public class NoteEditActivity extends ActionBarActivity {
                 // Teszetelésnél keresd ezt az üzenetet a logcat-ben.
                 // Akár filtert is használhatsz rá, úgy még gyorsabb.
                 Log.d("click-event", "it's clicked");
+
+                titleEditText.setEnabled(false);
+                dateTextView.setEnabled(false);
             }
         });
     }
