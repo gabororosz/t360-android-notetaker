@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
 public class NoteListActivity extends ActionBarActivity {
@@ -12,6 +13,8 @@ public class NoteListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_list);
+
+        final ListView noteList = (ListView) findViewById(R.id.noteListView);
     }
 
 
