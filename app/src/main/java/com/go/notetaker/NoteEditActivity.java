@@ -37,6 +37,7 @@ public class NoteEditActivity extends ActionBarActivity {
                 // Akár filtert is használhatsz rá, úgy még gyorsabb.
                 Log.d("click-event", "it's clicked");
 
+                // setEnabled false értéke mondja azt, hogy tiltsa le a vezérlőt
                 titleEditText.setEnabled(false);
                 dateTextView.setEnabled(false);
             }
