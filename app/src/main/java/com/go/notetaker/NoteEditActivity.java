@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class NoteEditActivity extends ActionBarActivity {
 
@@ -48,6 +52,15 @@ public class NoteEditActivity extends ActionBarActivity {
                     titleEditText.setEnabled(false);
                     dateTextView.setEnabled(false);
 
+                    // a mentési idő megjelenítése több lépésből áll
+                    // kell először egy formátum, majd az aktuális idő,
+                    // majd az előbbivel formázom az utóbbit, és már
+                    // csak be kell állítani a szövegnek
+                    final DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+                    Date now = new Date();
+                    final CharSequence timeText = timeFormat.format(now);
+                    dateTextView.setText(timeText);
+
                     // módot váltottunk, ugye ezt a gomb szövegében is érdemes jelezni
                     saveButton.setText("Edit");
                 } else {
@@ -56,6 +69,9 @@ public class NoteEditActivity extends ActionBarActivity {
 
                     titleEditText.setEnabled(true);
                     dateTextView.setEnabled(true);
+
+                    // resourceből betölteni sokkal szebb megoldás
+                    dateTextView.setText(R.string.textview_date_empty);
 
                     saveButton.setText("Save");
                 }
