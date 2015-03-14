@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 public class NoteEditActivity extends ActionBarActivity {
 
+    // Így tároljuk, hogy adott esetben Save vagy Edit mode-ban vagyunk.
+    private boolean mIsEditMode = true;
+
     // Az activity indításakor ez a metódus mindig lefut.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,20 +33,35 @@ public class NoteEditActivity extends ActionBarActivity {
 
         // Iratkozzunk fel a saveButton onClick eseményfigyelőjére.
         // Figyelj az importokra! Arra az esetre, ha elbizonytalanodnál:
-        // https://developer.android.com/reference/packages.html
+        // https://developer.android.com/reference/packages.html (kereső)
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(final View v) {
                 // Teszetelésnél keresd ezt az üzenetet a logcat-ben.
                 // Akár filtert is használhatsz rá, úgy még gyorsabb.
                 Log.d("click-event", "it's clicked");
 
-                // setEnabled false értéke mondja azt, hogy tiltsa le a vezérlőt
-                titleEditText.setEnabled(false);
-                dateTextView.setEnabled(false);
+                if (mIsEditMode) {
+                    // billentsük át, hiszen módot váltunk
+                    mIsEditMode = false;
+
+                    // setEnabled false értéke mondja azt, hogy tiltsa le a vezérlőt
+                    titleEditText.setEnabled(false);
+                    dateTextView.setEnabled(false);
+
+                    // módot váltottunk, ugye ezt a gomb szövegében is érdemes jelezni
+                    saveButton.setText("Edit");
+                } else {
+                    // lényegében ezen az ágon az előző ág fordítottja megy végbe
+                    mIsEditMode = true;
+
+                    titleEditText.setEnabled(true);
+                    dateTextView.setEnabled(true);
+
+                    saveButton.setText("Save");
+                }
             }
         });
     }
-
 
     // Betöltésre kerül a menu_note_edit.xml a a felső sávba, az ún. ActionBar-ba.
     @Override
