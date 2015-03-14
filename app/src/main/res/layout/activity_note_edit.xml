@@ -1,16 +1,16 @@
 <RelativeLayout
     android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="fill_parent"
-                android:layout_height="match_parent"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context=".NoteEditActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".NoteEditActivity">
 
-    <!-- Vertikálisan két sorban két további layoutot tartalmaz. -->
+<!-- Vertikálisan két sorban két további layoutot tartalmaz. -->
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -36,7 +36,6 @@
                      szöveges stílust töltünk be. Ettől eltekintve teljesen
                      sima stíluslap. -->
                 <TextView
-                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textview_title"
@@ -57,7 +56,6 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textview_date"
@@ -79,7 +77,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textview_notes"
