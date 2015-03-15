@@ -1,8 +1,8 @@
 package com.go.notetaker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -32,6 +30,8 @@ public class NoteEditActivity extends ActionBarActivity {
         // hogy azokat programozásra is használhassuk.
         // Figyelj az importokra!
         final EditText titleEditText = (EditText) findViewById(R.id.titleEditText);
+        // hoppá, a következő korábban kimaradt, de most már tényleg szükség van rá
+        final EditText noteEditText = (EditText) findViewById(R.id.noteEditText);
         final TextView dateTextView = (TextView) findViewById(R.id.dateTextView);
         final Button saveButton = (Button) findViewById(R.id.saveButton);
 
@@ -40,41 +40,28 @@ public class NoteEditActivity extends ActionBarActivity {
         // https://developer.android.com/reference/packages.html (kereső)
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(final View v) {
-                // Teszetelésnél keresd ezt az üzenetet a logcat-ben.
-                // Akár filtert is használhatsz rá, úgy még gyorsabb.
-                Log.d("click-event", "it's clicked");
+                // célunk, hogy a Save gomb lenyomására visszaküldjük a beírt jegyzetet a listának
+                // hogy ezt megtehessük, kiolvassuk a beviteli mezőkből a beírt címet és jegyzetet
+                String titleText = titleEditText.getText().toString();
+                String noteText = noteEditText.getText().toString();
 
-                if (mIsEditMode) {
-                    // billentsük át, hiszen módot váltunk
-                    mIsEditMode = false;
+                // az aktuális időt
+                Date dateTime = new Date();
 
-                    // setEnabled false értéke mondja azt, hogy tiltsa le a vezérlőt
-                    titleEditText.setEnabled(false);
-                    dateTextView.setEnabled(false);
+                // létrehozunk egy új note objektumot
+                Note note = new Note(titleText, noteText, dateTime);
 
-                    // a mentési idő megjelenítése több lépésből áll
-                    // kell először egy formátum, majd az aktuális idő,
-                    // majd az előbbivel formázom az utóbbit, és már
-                    // csak be kell állítani a szövegnek
-                    final DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-                    Date now = new Date();
-                    final CharSequence timeText = timeFormat.format(now);
-                    dateTextView.setText(timeText);
-
-                    // módot váltottunk, ugye ezt a gomb szövegében is érdemes jelezni
-                    saveButton.setText("Edit");
-                } else {
-                    // lényegében ezen az ágon az előző ág fordítottja megy végbe
-                    mIsEditMode = true;
-
-                    titleEditText.setEnabled(true);
-                    dateTextView.setEnabled(true);
-
-                    // resourceből betölteni sokkal szebb megoldás
-                    dateTextView.setText(R.string.textview_date_empty);
-
-                    saveButton.setText("Save");
-                }
+                // kell egy intent, amihez az elkészült note-ot csatoljuk mint plusz adatot
+                // most nem kell paraméterezni, most csak visszaadjuk az elkészült noteot
+                Intent returnIntent = new Intent();
+                // emlkézzetek, csak elemi adatokat lehet átadni, vagy Serializable-t,
+                // tegyük a Note osztályt ezzé, és jó lesz
+                returnIntent.putExtra("note", note);
+                // állítsuk be a visszatérési értékeket, RESULT_OK jelenti azt, hogy
+                // minden rendben, valamint visszaadunk az elkészült returnIntent-et is
+                setResult(RESULT_OK, returnIntent);
+                // ténylegesen visszatérünk
+                finish();
             }
         });
     }
