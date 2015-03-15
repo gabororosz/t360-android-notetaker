@@ -18,6 +18,23 @@ public class NoteListActivity extends ActionBarActivity {
     private ArrayList<Note> mNotes;
     private List<String> mValues;
 
+    // a másik activity visszatérési értékét itt fogadjuk
+    @Override protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == 1 && data != null) {
+            // lekérem a NoteEditActivity-ben vissazaadott Note objektumot a data paraméterből,
+            // ami, ha megfigyeled egy Intent példány
+            final Note note = (Note) data.getSerializableExtra("note");
+
+            // eltárolod azt
+            mNotes.add(note);
+            mValues.add(note.getTitle());
+
+            // és végül megjeleníted
+            populateList();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
