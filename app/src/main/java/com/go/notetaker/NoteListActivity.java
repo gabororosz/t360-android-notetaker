@@ -2,7 +2,6 @@ package com.go.notetaker;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -15,32 +14,34 @@ import java.util.List;
 
 public class NoteListActivity extends ActionBarActivity {
 
+    private ArrayList<Note> mNotes;
+    private List<String> mValues;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_list);
 
-        final ListView noteList = (ListView) findViewById(R.id.noteListView);
-
         // Már nem stringeket akarunk belepakolni, valódi Note objektumokkal,
         // szeretnénk dolgozni.
-        ArrayList<Note> notes = new ArrayList<>();
-        notes.add(new Note("First note", "Note 1", new Date()));
-        notes.add(new Note("Second note", "Note 2", new Date()));
-        notes.add(new Note("Third note", "Note 3", new Date()));
+        mNotes = new ArrayList<>();
+        mNotes.add(new Note("First note", "Note 1", new Date()));
+        mNotes.add(new Note("Second note", "Note 2", new Date()));
+        mNotes.add(new Note("Third note", "Note 3", new Date()));
 
         // Ebből következőleg a values is változik, töröltük az összes .add hívást
-        List<String> values = new ArrayList<>();
+        mValues = new ArrayList<>();
         // de mivel az arrayadapter használja a values, így kényelmesebb megtartani,
         // és a noteokból betölteni az elemeket.
-        for (Note note : notes) {
-            values.add(note.getTitle());
+        for (Note note : mNotes) {
+            mValues.add(note.getTitle());
         }
 
         // Szükségünk van a ListView-hoz egy adapterre, kezdésnek használjuk ezt az egyszerű megoldást,
         // az android.R. azt jelenti be van építve az Android rendszerbe, de az is sima resource,
         // control + click akár a simple_list_item_1-re, akár a text1-re, és jó lesz.
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        final ListView noteList = (ListView) findViewById(R.id.noteListView);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mValues);
         noteList.setAdapter(adapter);
     }
 
@@ -61,7 +62,14 @@ public class NoteListActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_note) {
-            Log.d("actionbar", "add note clicked");
+            final Note note = new Note("Added note", "Note added, bumm", new Date());
+            mNotes.add(note);
+            mValues.add(note.getTitle());
+
+            final ListView noteList = (ListView) findViewById(R.id.noteListView);
+            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mValues);
+            noteList.setAdapter(adapter);
+
             return true;
         }
 
