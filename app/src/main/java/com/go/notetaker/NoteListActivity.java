@@ -2,6 +2,7 @@ package com.go.notetaker;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -59,7 +60,8 @@ public class NoteListActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add_note) {
+            Log.d("actionbar", "add note clicked");
             return true;
         }
 
