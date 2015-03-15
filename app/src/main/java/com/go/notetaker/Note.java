@@ -6,6 +6,7 @@ import java.util.Date;
  * Created by gabororosz on 15/03/15.
  */
 public class Note {
+    // Teljesen az activity_note_edit.xml layout alapján, a három kiemelt elemet tároljuk így.
     private String mTitle;
     private String mNote;
     private Date mDate;

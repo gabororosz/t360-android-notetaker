@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -20,14 +21,20 @@ public class NoteListActivity extends ActionBarActivity {
 
         final ListView noteList = (ListView) findViewById(R.id.noteListView);
 
-        // Létre kell hozni Stringek egy listáját, amiben az egyes jegyzetek címei találhatóak,
-        // ezek még csak kamu elemek.
+        // Már nem stringeket akarunk belepakolni, valódi Note objektumokkal,
+        // szeretnénk dolgozni.
+        ArrayList<Note> notes = new ArrayList<>();
+        notes.add(new Note("First note", "Note 1", new Date()));
+        notes.add(new Note("Second note", "Note 2", new Date()));
+        notes.add(new Note("Third note", "Note 3", new Date()));
+
+        // Ebből következőleg a values is változik, töröltük az összes .add hívást
         List<String> values = new ArrayList<>();
-        values.add("First note");
-        values.add("Second note");
-        values.add("Third note");
-        values.add("Fourth note");
-        values.add("Fifth note");
+        // de mivel az arrayadapter használja a values, így kényelmesebb megtartani,
+        // és a noteokból betölteni az elemeket.
+        for (Note note : notes) {
+            values.add(note.getTitle());
+        }
 
         // Szükségünk van a ListView-hoz egy adapterre, kezdésnek használjuk ezt az egyszerű megoldást,
         // az android.R. azt jelenti be van építve az Android rendszerbe, de az is sima resource,
