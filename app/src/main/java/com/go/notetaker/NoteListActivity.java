@@ -1,5 +1,6 @@
 package com.go.notetaker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -65,10 +66,11 @@ public class NoteListActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_note) {
-            final Note note = new Note("Added note", "Note added, bumm", new Date());
-            mNotes.add(note);
-            mValues.add(note.getTitle());
-            populateList();
+            // át akarok navigálni a másik activity-re, hogy ezt megtehessem,
+            // létrehozok egy intent-et, amiben leírom a kiindulási pontot,
+            // azaz a jelen activityt (ezt jelenti a this), és a célt is
+            Intent intent = new Intent(this, NoteEditActivity.class);
+            startActivity(intent);
             return true;
         }
 
