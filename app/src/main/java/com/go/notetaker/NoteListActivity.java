@@ -36,7 +36,10 @@ public class NoteListActivity extends ActionBarActivity {
         for (Note note : mNotes) {
             mValues.add(note.getTitle());
         }
+        populateList();
+    }
 
+    private void populateList() {
         // Szükségünk van a ListView-hoz egy adapterre, kezdésnek használjuk ezt az egyszerű megoldást,
         // az android.R. azt jelenti be van építve az Android rendszerbe, de az is sima resource,
         // control + click akár a simple_list_item_1-re, akár a text1-re, és jó lesz.
@@ -65,11 +68,7 @@ public class NoteListActivity extends ActionBarActivity {
             final Note note = new Note("Added note", "Note added, bumm", new Date());
             mNotes.add(note);
             mValues.add(note.getTitle());
-
-            final ListView noteList = (ListView) findViewById(R.id.noteListView);
-            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mValues);
-            noteList.setAdapter(adapter);
-
+            populateList();
             return true;
         }
 
