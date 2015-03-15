@@ -9,4 +9,5 @@
     <string name="textview_date">Date:</string>
     <string name="textview_title">Title:</string>
     <string name="title_activity_note_list">NoteListActivity</string>
+    <string name="textview_add_note">Add Note</string>
 </resources>
