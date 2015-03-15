@@ -70,7 +70,9 @@ public class NoteListActivity extends ActionBarActivity {
             // létrehozok egy intent-et, amiben leírom a kiindulási pontot,
             // azaz a jelen activityt (ezt jelenti a this), és a célt is
             Intent intent = new Intent(this, NoteEditActivity.class);
-            startActivity(intent);
+            // úgy kell elindítani az Activity-t, hogy visszatérési értéket várok
+            // a második paraméter, a requestCode értéke mindegy, csak egyedi legyen
+            startActivityForResult(intent, 1);
             return true;
         }
 
