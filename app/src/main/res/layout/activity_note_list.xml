@@ -8,7 +8,7 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 tools:context="com.go.notetaker.NoteListActivity">
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/noteListView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

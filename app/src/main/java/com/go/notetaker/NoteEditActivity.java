@@ -57,6 +57,8 @@ public class NoteEditActivity extends ActionBarActivity {
                 // emlkézzetek, csak elemi adatokat lehet átadni, vagy Serializable-t,
                 // tegyük a Note osztályt ezzé, és jó lesz
                 returnIntent.putExtra("note", note);
+                returnIntent.putExtra("note2", note);
+                returnIntent.putExtra("note3", note);
                 // állítsuk be a visszatérési értékeket, RESULT_OK jelenti azt, hogy
                 // minden rendben, valamint visszaadunk az elkészült returnIntent-et is
                 setResult(RESULT_OK, returnIntent);

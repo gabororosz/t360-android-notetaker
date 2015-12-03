@@ -3,6 +3,9 @@ package com.go.notetaker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -61,9 +64,14 @@ public class NoteListActivity extends ActionBarActivity {
         // Szükségünk van a ListView-hoz egy adapterre, kezdésnek használjuk ezt az egyszerű megoldást,
         // az android.R. azt jelenti be van építve az Android rendszerbe, de az is sima resource,
         // control + click akár a simple_list_item_1-re, akár a text1-re, és jó lesz.
-        final ListView noteList = (ListView) findViewById(R.id.noteListView);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mValues);
-        noteList.setAdapter(adapter);
+        final RecyclerView noteList = (RecyclerView) findViewById(R.id.noteListView);
+        // final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, mValues);
+        // noteList.setAdapter(adapter);
+
+        noteList.setHasFixedSize(true);
+        noteList.setAdapter(new NoteListAdapter(mValues, android.R.layout.simple_list_item_1));
+        noteList.setLayoutManager(new LinearLayoutManager(this));
+        noteList.setItemAnimator(new DefaultItemAnimator());
     }
 
 
